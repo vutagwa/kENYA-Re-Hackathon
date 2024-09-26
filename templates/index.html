@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PI Quotation</title>
+    <title>Professional Indemnity Quotation</title>
 </head>
 <body>
-    <h1>Professional Indemnity Quotation</h1>
+    <h1>Professional Indemnity Quotation System</h1>
+    
+    <form id="upload-form" enctype="multipart/form-data">
+        <h3>Upload Proposal Form:</h3>
+        <input type="file" name="proposal" required>
+        
+        <h3>Upload 2023 Audited Financial Statements:</h3>
+        <input type="file" name="fs_2023" required>
+        
+        <h3>Upload 2022 Audited Financial Statements:</h3>
+        <input type="file" name="fs_2022" required>
+        
+        <button type="submit">Submit Files</button>
+    </form>
+    
+    <h2>OR</h2>
+    
     <form id="quotationForm">
         <label for="estimated_income">Estimated Income:</label>
         <input type="text" name="estimated_income" required><br>
@@ -20,10 +36,21 @@
     <div id="result"></div>
 
     <script>
-        document.getElementById('quotationForm').onsubmit = async function(event) {
+        document.getElementById('upload-form').onsubmit = async function(event) {
             event.preventDefault();
             const formData = new FormData(this);
             const response = await fetch('/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = `Premium: ${result.premium}\nDetails: ${result.details}`;
+        };
+
+        document.getElementById('quotationForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/submit-manual', {
                 method: 'POST',
                 body: formData
             });
