@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PI Quotation</title>
+</head>
+<body>
+    <h1>Professional Indemnity Quotation</h1>
+    <form id="quotationForm">
+        <label for="estimated_income">Estimated Income:</label>
+        <input type="text" name="estimated_income" required><br>
+
+        <label for="limit_of_indemnity">Limit of Indemnity:</label>
+        <input type="text" name="limit_of_indemnity" required><br>
+
+        <button type="submit">Get Quotation</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('quotationForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = `Premium: ${result.premium}, Details: ${result.details}`;
+        };
+    </script>
+</body>
+</html>
