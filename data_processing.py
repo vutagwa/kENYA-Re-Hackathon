@@ -1,9 +1,22 @@
 import pandas as pd
 
 def process_rating_guide(file_path):
-    # Load rating guide
-    rating_guide = pd.read_excel(file_path)
-    return rating_guide
+    """
+    Process the rating guide from an Excel file.
+    
+    Args:
+    file_path (str): Path to the Excel file.
+
+    Returns:
+    DataFrame: Processed rating guide data.
+    """
+    try:
+        rating_guide = pd.read_excel(file_path, engine='openpyxl')  # Specify the engine
+        return rating_guide
+    except Exception as e:
+        print(f"Error processing rating guide: {e}")
+        return None
+
 
 def process_proposal_form(text):
     # processing for the proposal form

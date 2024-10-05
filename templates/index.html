@@ -57,6 +57,9 @@
             const result = await response.json();
             document.getElementById('result').innerText = `Premium: ${result.premium}, Details: ${result.details}`;
         };
+        document.getElementById('result').innerHTML = 
+    `Premium: ${result.premium}<br>Details: ${result.details}<br>
+    <a href="${result.pdf_url}" target="_blank">Download Quote</a>`;
     </script>
 </body>
 </html>
